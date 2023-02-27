@@ -1,5 +1,7 @@
 #include <iostream>
+#include <SDL2/SDL_image.h>
 #include "app.h"
+
 
 using std::cout;
 using std::endl;
@@ -19,7 +21,8 @@ App::App(){
     cout<<"Failed to open "<<SCREEN_WIDTH << "x"<<SCREEN_HEIGHT<<" winodw: "<<SDL_GetError()<<endl;
     exit(1);
   }
-  SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"linear");
+  // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"linear");
+
 
   renderer = SDL_CreateRenderer(window, -1, rendererFlags);
 
@@ -27,9 +30,14 @@ App::App(){
     cout<<"Failed to create renderer: "<<SDL_GetError()<<endl;
     exit(1);
   }
+
+  IMG_Init(IMG_INIT_PNG|IMG_INIT_JPG);
+
+
 }
 
 App::~App(){
+  IMG_Quit();
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
 }
