@@ -120,12 +120,12 @@ void process_collisions(Entity &player, std::unique_ptr<vector<Entity>> &blocks,
 std::unique_ptr<vector<Entity>> loadBoundry(vector<SDL_Texture*> textures){
   std::unique_ptr<vector<Entity>> out{new vector<Entity>};
   for(int i=-1;i<22;i++){
-    out->push_back(Entity(i*60,-60,60,60,textures.at(0)));
-    out->push_back(Entity(i*60,660,60,60,textures.at(0)));
+    out->emplace_back(i*60,-60,60,60,textures.at(0));
+    out->emplace_back(i*60,660,60,60,textures.at(0));
   }
   for(int i=0;i<11;i++){
-    out->push_back(Entity(-60,i*60,60,60,textures.at(0)));
-    out->push_back(Entity(1260,i*60,60,60,textures.at(0)));
+    out->emplace_back(-60,i*60,60,60,textures.at(0));
+    out->emplace_back(1260,i*60,60,60,textures.at(0));
   }
   return out;
 }
@@ -133,10 +133,10 @@ std::unique_ptr<vector<Entity>> loadLevel(vector<SDL_Texture*> textures){
   std::ifstream infile{"../levels/lvl1.txt",std::ios::in};
   std::unique_ptr<vector<Entity>> out{loadBoundry(textures)};
   if(!infile.is_open()){
-    out->push_back(Entity(100,400,50,50,textures.at(0)));
-    out->push_back(Entity(150,400,50,50,textures.at(0)));
-    out->push_back(Entity(200,400,50,50,textures.at(0)));
-    out->push_back(Entity(200,200,50,50,textures.at(0)));
+    out->emplace_back(100,400,50,50,textures.at(0));
+    out->emplace_back(150,400,50,50,textures.at(0));
+    out->emplace_back(200,400,50,50,textures.at(0));
+    out->emplace_back(200,200,50,50,textures.at(0));
     return out;
   }
   int row=0;
